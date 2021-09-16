@@ -1,5 +1,6 @@
 <?php
 
-echo "hello";
+file_exists();
+method_exists();
 
 ?>
