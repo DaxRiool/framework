@@ -1,15 +1,42 @@
 <?php
 
-require '../vendor/autoload.php';
+include "./vendor/autoload.php";
 
-$loader = new \Twig\Loader\FilesystemLoader('./views');
-$twig = new \Twig\Environment($loader);
+$a = explode("/", $_SERVER['REQUEST_URI']);
 
-$name = "Daxx";
+if (empty($a[2])) {
+    $resource = "home";
+} else {
+    $resource = $a[2];
+}
+if (isset($a[3])) {
+    $method = $a[3];
+} else {
+    $method = "index";
+}
 
-echo $twig->render('index.html', ['name' => $name]);
 
 
+$controllerPath = "controllers/{$resource}Controller.class.php";
 
+if (file_exists($controllerPath)) {
+    include $controllerPath;
+} else {
+    header("HTTP/1.0 404 Not Found");
+    echo "geen controller";
+    exit;
+}
+
+if (!method_exists("{$resource}Controller", $method)) {
+    header("HTTP/1.0 404 Not Found");
+    echo "geen method";
+    exit;
+}
+
+$controllerClass = "{$resource}Controller";
+
+$controller = new $controllerClass();
+
+$controller->{$method}();
 
 ?>

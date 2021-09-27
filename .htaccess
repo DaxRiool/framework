@@ -1,1 +1,3 @@
-/controller/method
+RewriteEngine off
+
+RewriteRule .* src/index.php
