@@ -7,7 +7,7 @@
 <body>
     
 </body>
-</html>
+
 <?php
 
 $host = '127.0.0.1:3306';
@@ -19,11 +19,12 @@ $dsn = "mysql:host=$host;dbname=$db;charset=$charset";
 $PDO = new PDO($dsn, $user, $pass);
 
 $query = "SELECT * from book";
-echo $query;
+
 $query = $PDO->query($query);
 $query = $query->fetchAll(PDO::FETCH_ASSOC);
 ?>
-
+<a href="toevoegen.php"><button>toevoegen</button></a>
+<br><br><br>
 <table>
     <tr>
         <th>
@@ -47,3 +48,4 @@ $query = $query->fetchAll(PDO::FETCH_ASSOC);
             <?php
         }
         ?>
+</html>

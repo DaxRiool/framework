@@ -14,18 +14,18 @@
     ?>
 </head>
 <body>
-    <a href="publishers.php">publishers</a>
-    <h1>books
-    </h1>
+    <a href="index.php">books</a>
+    <h1>publishers</h1>
+    <a href="toevoegen.php"><button>toevoegen</button></a>
     <br><br>
 </body>
 </html>
 <?php
 
-$query = "SELECT * FROM book";
+$query = "SELECT * FROM publishers";
 $query = $PDO->query($query);
 $query = $query->fetchAll(PDO::FETCH_ASSOC);
 foreach ($query as $ding) {
-    echo $ding["title"] . "<br>";
+    echo $ding["id"] . " " . $ding["name"] . "<br>";
 }
 ?>
