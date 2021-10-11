@@ -1,31 +1,48 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <link rel="stylesheet" href="beans.css">
-    <title>Document</title>
-    <?php
-    $host = '127.0.0.1:3306';
-    $db   = 'building_framework';
-    $user = 'root';
-    $pass = '';
-    $charset = 'utf8mb4';
-    $dsn = "mysql:host=$host;dbname=$db;charset=$charset";
-    $PDO = new PDO($dsn, $user, $pass);
-    ?>
-</head>
-<body>
-    <a href="publishers.php">publishers</a>
-    <h1>books
-    </h1>
-    <br><br>
-</body>
-</html>
 <?php
 
-$query = "SELECT * FROM book";
-$query = $PDO->query($query);
-$query = $query->fetchAll(PDO::FETCH_ASSOC);
-foreach ($query as $ding) {
-    echo $ding["title"] . "<br>";
+include "../vendor/autoload.php";
+
+$loader = new \Twig\Loader\FilesystemLoader('views');
+$twig = new \Twig\Environment($loader);
+
+use \RedBeanPHP\R as R;
+
+
+$a = explode("/", $_SERVER['REQUEST_URI']);
+
+if (empty($a[2])) {
+    $resource = "book";
+} else {
+    $resource = $a[2];
 }
+if (isset($a[3])) {
+    $method = $a[3];
+} else {
+    $method = "index";
+}
+
+
+
+$controllerPath = "controllers/{$resource}Controller.class.php";
+
+if (file_exists($controllerPath)) {
+    include $controllerPath;
+} else {
+    header("HTTP/1.0 404 Not Found");
+    echo "geen controller";
+    exit;
+}
+
+if (!method_exists("{$resource}Controller", $method)) {
+    header("HTTP/1.0 404 Not Found");
+    echo "geen method";
+    exit;
+}
+
+$controllerClass = $resource . "Controller";
+
+$controller = new $controllerClass();
+
+$controller->{$method}();
+
 ?>

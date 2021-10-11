@@ -15,14 +15,10 @@
 </html>
 <?php
 
-$host = '127.0.0.1:3306';
-$db   = 'building_framework';
-$user = 'root';
-$pass = '';
-$charset = 'utf8mb4';
-$dsn = "mysql:host=$host;dbname=$db;charset=$charset";
-$PDO = new PDO($dsn, $user, $pass);
 
+require 'rb.php';
+    R::setup();
+    R::setup('mysql:host=localhost;dbname=building_framework', 'user', 'password');
 
 if (isset($_POST["text"])) {
     $name = $_POST["text"];
