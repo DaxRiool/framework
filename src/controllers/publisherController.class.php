@@ -6,24 +6,25 @@
     <?php
 
     include "../vendor/autoload.php";
-    $loader = new \Twig\Loader\FilesystemLoader('views');
-    $twig = new \Twig\Environment($loader);
+    
+    include "./services/UserService.class.php";
     
     use \RedBeanPHP\R as R;
-    R::setup('mysql:host=localhost;dbname=building_framework', 'root', '');
+
     class publisherController
     {
+        private $twig;
+
+        public function __construct($twig) {
+            $this->twig = $twig;
+        }
+
         public function add()
         {
-            ?>
-            <a href="index">terug</a>
-            <h1>publisher add</h1>
-            <p>name: </p>
-            <form method="post">
-                <input type="text" name="text">
-                <input type="submit" value="add">
-            </form>
-            <?php
+            $validate = new UserService();
+            $validate->validateLoggedIn();
+            $template = $this->twig->load('index.html');
+            echo $template->render();
             if (isset($_POST["text"])) {
                 $name = $_POST["text"];
                 $query = "INSERT INTO publishers (name) VALUES (\"$name\")";
@@ -35,14 +36,12 @@
         }
         public function index()
         {
-            ?>
-            <a href="add">add</a>
-            <?php
+            $validate = new UserService();
+            $validate->validateLoggedIn();
             $books = R::getAll("SELECT * FROM publishers");
             $publish = R::convertToBeans("publishers", $books);
-            ?>
-            <h1>Publishers</h1>
-            <?php
+            $template = $this->twig->load('publish.html');
+            echo $template->render(["publishers" => $publish]);
             foreach ($publish as $ding) {
                 echo $ding["name"] . "<br>";
             }

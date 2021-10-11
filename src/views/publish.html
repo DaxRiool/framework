@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Document</title>
+</head>
+<body>
+    <a href="add">add</a>
+    <h1>Publishers</h1>
+<ul>
+    {% for publisher in Publishers %}
+        <li>{{ publisher.name }}</li>
+    {% endfor %}
+</ul>
+</body>
+</html>
