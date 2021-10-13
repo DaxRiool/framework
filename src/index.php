@@ -12,7 +12,7 @@ R::setup('mysql:host=localhost;dbname=building_framework', 'root', '');
 $a = explode("/", $_SERVER['REQUEST_URI']);
 
 if (empty($a[2])) {
-    $resource = "book";
+    $resource = "home";
 } else {
     $resource = $a[2];
 }

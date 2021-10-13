@@ -1,8 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <link rel="stylesheet" href="beans.css">
-    <title>Document</title>
     <?php
 
     include "../vendor/autoload.php";

@@ -1,23 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <link rel="stylesheet" href="beans.css">
-    <title>Document</title>
-</head>
-<body>
+
 <?php
 
-$loader = new \Twig\Loader\FilesystemLoader('views');
-$twig = new \Twig\Environment($loader);
-
 use \RedBeanPHP\R as R;
-R::setup('mysql:host=localhost;dbname=building_framework', 'root', '');
+
 
 
 $book = R::dispense("book");
 $book->title = 'Wonders of the world';
-$book->author_id = 1;
-$book->publisher_id = 1;
+$publisher = R::dispense("publisher");
+$publisher->name = "naam_publisher";
+$book->publisher = $publisher;
+
+
+$author = R::dispense("author");
+$author->name = "naam_author";
+$book->author = $author;
+
+
+
+
+$book->author = $author;
 $id = R::store($book);
 
 echo "database aangepast";
