@@ -20,14 +20,15 @@
             $validate->validateLoggedIn();
             $template = $this->twig->load('index.html');
             echo $template->render();
+        }
+        public function addPOST() 
+        {
             if (isset($_POST["text"])) {
                 $name = $_POST["text"];
                 $query = "INSERT INTO publishers (name) VALUES (\"$name\")";
                 R::exec($query);
                 $id = R::getInsertID();
             }
-            ?>
-            <?php
         }
         public function index()
         {
