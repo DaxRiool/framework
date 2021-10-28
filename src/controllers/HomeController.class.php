@@ -27,8 +27,6 @@ class HomeController
         $author = R::dispense("author");
         $author->name = "naam_author";
         $book->author = $author;
-
-        $book->author = $author;
         $id = R::store($book);
 
         echo "database aangepast";
