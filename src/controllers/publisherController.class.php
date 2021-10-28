@@ -21,6 +21,7 @@
             $template = $this->twig->load('index.html');
             echo $template->render();
         }
+        
         public function addPOST()
         {
             $name = $_POST["text"];
