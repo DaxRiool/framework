@@ -11,6 +11,8 @@ R::setup('mysql:host=localhost;dbname=building_framework', 'root', '');
 
 $a = explode("/", $_SERVER['REQUEST_URI']);
 
+$check = $_SERVER['REQUEST_METHOD'];
+
 if (empty($a[2])) {
     $resource = "home";
 } else {
@@ -42,7 +44,16 @@ if (!method_exists("{$resource}Controller", $method)) {
 
 $controllerClass = $resource . "Controller";
 
+
+
 $controller = new $controllerClass($twig);
+
+
+if ($check == "POST") {
+    $method = $method . "POST";    
+}
+
+
 
 $controller->{$method}();
 

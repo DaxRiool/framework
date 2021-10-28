@@ -10,6 +10,15 @@ class UserService
         $books = R::getAll("SELECT * FROM sessions");
         if (empty($books[0]["token"])) {
             echo "token is er niet";
+            header("Location: ./user/login");
+        }
+    }
+    public function validateLoggedIn2()
+    {
+        include "../vendor/autoload.php";
+        $books = R::getAll("SELECT * FROM sessions");
+        if (empty($books[0]["token"])) {
+            echo "token is er niet";
             header("Location: ../user/login");
         }
     }

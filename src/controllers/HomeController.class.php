@@ -1,5 +1,9 @@
 <?php
 
+include "../vendor/autoload.php";
+    
+include "./services/UserService.class.php";
+
 use \RedBeanPHP\R as R;
 class HomeController
 {
@@ -11,19 +15,17 @@ class HomeController
 
     public function index()
     {   
+        $validate = new UserService();
+        $validate->validateLoggedIn();
         $book = R::dispense("book");
         $book->title = 'Wonders of the world';
         $publisher = R::dispense("publisher");
         $publisher->name = "naam_publisher";
         $book->publisher = $publisher;
 
-
         $author = R::dispense("author");
         $author->name = "naam_author";
         $book->author = $author;
-
-
-
 
         $book->author = $author;
         $id = R::store($book);
@@ -34,14 +36,6 @@ class HomeController
         $convertedBooks = R::convertToBeans("book", $books);
         $template = $this->twig->load('home.html');
         echo $template->render(["books" => $convertedBooks]);
-        // foreach ($convertedBooks as $boek) {
-        //     echo "<tr>";
-        //     echo  "<td>" . $boek["title"] .  "</td>";
-        //     echo "<td>" . $boek["author_id"] .  "</td>";
-        //     echo "<td>" . $boek["publisher_id"] .  "</td>";
-        //     echo "</tr>";
-        // }
-          
     }
 }
 ?>

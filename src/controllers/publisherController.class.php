@@ -17,22 +17,27 @@
         public function add()
         {
             $validate = new UserService();
-            $validate->validateLoggedIn();
+            $validate->validateLoggedIn2();
             $template = $this->twig->load('index.html');
             echo $template->render();
-            if (isset($_POST["text"])) {
-                $name = $_POST["text"];
-                $query = "INSERT INTO publishers (name) VALUES (\"$name\")";
-                R::exec($query);
-                $id = R::getInsertID();
-            }
-            ?>
-            <?php
         }
+
+        public function addPOST()
+        {
+            $validate = new UserService();
+            $validate->validateLoggedIn2();
+            $name = $_POST["text"];
+            $sessions = R::dispense("publishers");
+            $sessions->name = $name;
+            R::store($sessions);
+            $id = R::getInsertID();
+            header("Location:./index");
+        }
+
         public function index()
         {
             $validate = new UserService();
-            $validate->validateLoggedIn();
+            $validate->validateLoggedIn2();
             $books = R::getAll("SELECT * FROM publishers");
             $publish = R::convertToBeans("publishers", $books);
             $template = $this->twig->load('publish.html');
