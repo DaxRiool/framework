@@ -21,14 +21,13 @@
             $template = $this->twig->load('index.html');
             echo $template->render();
         }
-        public function addPOST() 
+        public function addPOST()
         {
-            if (isset($_POST["text"])) {
-                $name = $_POST["text"];
-                $query = "INSERT INTO publishers (name) VALUES (\"$name\")";
-                R::exec($query);
-                $id = R::getInsertID();
-            }
+            $name = $_POST["text"];
+            $query = "INSERT INTO publishers (name) VALUES (\"$name\")";
+            R::exec($query);
+            $id = R::getInsertID();
+            header("Location:./index");
         }
         public function index()
         {
@@ -43,11 +42,4 @@
             }
         }
     }
-    
     ?>
-</head>
-<body>
-    
-    <br><br>
-</body>
-</html>
