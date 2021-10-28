@@ -22,10 +22,10 @@ class HomeController
         $book->author = $author;
 
 
-        // $book->author = $author;
-        // $id = R::store($book);
+        $book->author = $author;
+        $id = R::store($book);
 
-        // echo "database aangepast";
+        echo "database aangepast";
 
         $books = R::getAll("SELECT * FROM book");
         $convertedBooks = R::convertToBeans("book", $books);
