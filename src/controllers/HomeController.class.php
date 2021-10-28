@@ -11,15 +11,15 @@ class HomeController
 
     public function index()
     {   
-        // $book = R::dispense("book");
-        // $book->title = 'Wonders of the world';
-        // $publisher = R::dispense("publisher");
-        // $publisher->name = "naam_publisher";
-        // $book->publisher = $publisher;
+        $book = R::dispense("book");
+        $book->title = 'Wonders of the world';
+        $publisher = R::dispense("publisher");
+        $publisher->name = "naam_publisher";
+        $book->publisher = $publisher;
 
-        // $author = R::dispense("author");
-        // $author->name = "naam_author";
-        // $book->author = $author;
+        $author = R::dispense("author");
+        $author->name = "naam_author";
+        $book->author = $author;
 
 
         // $book->author = $author;
