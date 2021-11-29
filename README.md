@@ -1,1 +1,1 @@
-dit is een opdracht waarbij ik een framwork moest maken. Gebruik hievoor XAMPP om het te laten werken
+Dit is een opdracht waar ik gebruik maak van een framework
